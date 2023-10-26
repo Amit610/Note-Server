@@ -1,12 +1,19 @@
 const connectToMongo = require("./db");
-const cors = require("cors")
+const cors = require("cors");
 connectToMongo();
 
 const express = require("express");
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 4000;
 
-app.use(cors())
+const corsOptions = {
+  origin: 'http://localhost:3001', // Replace with your frontend's URL
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // If you're using cookies or authentication
+  optionsSuccessStatus: 204, // Some legacy browsers (IE) choke on 204
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Available routes
